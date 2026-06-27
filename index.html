@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Spin Woodturning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #F7F2EB;
+      --warm:     #EDE3D4;
+      --bark:     #6B4F35;
+      --grain:    #A0745A;
+      --deep:     #2C1F14;
+      --gold:     #C09A5B;
+      --text:     #3A2A1C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      background: rgba(247,242,235,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(160,116,90,0.15);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      color: var(--bark);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 5rem;
+    }
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 600;
+      line-height: 1.08;
+      color: var(--deep);
+      margin-bottom: 1.6rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--bark);
+    }
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.75;
+      max-width: 380px;
+      margin-bottom: 2.8rem;
+      line-height: 1.8;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--bark);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background 0.25s;
+      align-self: flex-start;
+    }
+    .btn:hover { background: var(--deep); }
+    .btn-outline {
+      background: transparent;
+      color: var(--bark);
+      border: 1px solid var(--bark);
+      margin-left: 1rem;
+    }
+    .btn-outline:hover { background: var(--bark); color: var(--cream); }
+
+    .hero-visual {
+      background: var(--warm);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* SVG bowl illustration as signature element */
+    .bowl-art {
+      width: 72%;
+      max-width: 420px;
+      opacity: 0.92;
+    }
+
+    /* ring accent */
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(192,154,91,0.3);
+    }
+    .ring-1 { width: 500px; height: 500px; top: -80px; right: -80px; }
+    .ring-2 { width: 340px; height: 340px; top: 30px; right: 30px; }
+
+    /* ABOUT */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .about-img {
+      background: var(--bark);
+      min-height: 480px;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wood-pattern {
+      width: 100%; height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+    }
+    .about-text {
+      padding: 5rem 4.5rem;
+      background: var(--deep);
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-text .eyebrow { color: var(--gold); }
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--cream);
+      margin: 1rem 0 1.5rem;
+    }
+    .about-text h2 em { font-style: italic; color: var(--gold); }
+    .about-text p { opacity: 0.8; line-height: 1.85; margin-bottom: 1rem; font-size: 0.95rem; }
+    .signature {
+      margin-top: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* WORK */
+    .work { padding: 6rem 5rem; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header .eyebrow { display: block; margin-bottom: 0.8rem; }
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 600;
+      color: var(--deep);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .card {
+      background: var(--warm);
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    .card:first-child { grid-row: span 2; aspect-ratio: unset; }
+    .card-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(transparent, rgba(44,31,20,0.7));
+      color: var(--cream);
+    }
+    .card-label span {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.2rem;
+    }
+    .card-label strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
+
+    /* SVG illustrations for cards */
+    .card-svg { width: 60%; max-width: 160px; }
+
+    /* PROCESS */
+    .process {
+      background: var(--warm);
+      padding: 6rem 5rem;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    .step { padding: 0 1rem; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      color: var(--gold);
+      opacity: 0.5;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--deep);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .step p { font-size: 0.88rem; opacity: 0.75; }
+
+    /* CONTACT */
+    .contact {
+      padding: 6rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .contact h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 600;
+      color: var(--deep);
+      margin: 0.8rem 0 1.2rem;
+      line-height: 1.15;
+    }
+    .contact p { opacity: 0.7; margin-bottom: 2rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.9rem;
+    }
+    .contact-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form input,
+    .contact-form textarea {
+      background: var(--warm);
+      border: none;
+      border-bottom: 1px solid rgba(107,79,53,0.3);
+      padding: 0.9rem 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--bark); }
+    .contact-form textarea { min-height: 100px; resize: vertical; }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { opacity: 0.45; }
+
+    /* FOOTER */
+    footer {
+      background: var(--deep);
+      color: var(--cream);
+      padding: 2.5rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      opacity: 0.9;
+    }
+    footer .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text { padding: 5rem 2rem 3rem; }
+      .hero-visual { min-height: 300px; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { min-height: 280px; }
+      .about-text { padding: 3rem 2rem; }
+      .work { padding: 4rem 1.5rem; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .card:first-child { grid-row: auto; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .process { padding: 4rem 2rem; }
+      .contact { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">New Spin Woodturning</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Handcrafted in the USA</p>
+    <h1>Wood turned<br>with <em>intention</em></h1>
+    <p class="hero-sub">Each bowl and vessel begins as a living piece of wood — shaped on the lathe, finished by hand, and made to be used and admired for generations.</p>
+    <div>
+      <a href="#work" class="btn">View the Collection</a>
+      <a href="#contact" class="btn btn-outline">Commission a Piece</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <!-- Signature SVG bowl -->
+    <svg class="bowl-art" viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wood grain rings -->
+      <ellipse cx="200" cy="180" rx="160" ry="50" fill="#C09A5B" opacity="0.12"/>
+      <ellipse cx="200" cy="180" rx="130" ry="40" fill="#C09A5B" opacity="0.1"/>
+      <ellipse cx="200" cy="180" rx="100" ry="30" fill="#C09A5B" opacity="0.08"/>
+      <!-- Bowl body -->
+      <path d="M60 120 Q80 260 200 280 Q320 260 340 120" stroke="#6B4F35" stroke-width="2.5" fill="#EDE3D4"/>
+      <!-- Bowl rim ellipse -->
+      <ellipse cx="200" cy="120" rx="140" ry="30" fill="#A0745A" opacity="0.6"/>
+      <ellipse cx="200" cy="120" rx="140" ry="30" stroke="#6B4F35" stroke-width="2" fill="none"/>
+      <!-- Inner bowl shadow -->
+      <path d="M80 120 Q100 200 200 220 Q300 200 320 120" fill="rgba(107,79,53,0.12)"/>
+      <!-- Wood grain lines inside bowl -->
+      <path d="M105 150 Q150 175 200 178 Q250 175 295 150" stroke="#A0745A" stroke-width="1" opacity="0.4" fill="none"/>
+      <path d="M95 135 Q150 158 200 160 Q250 158 305 135" stroke="#A0745A" stroke-width="1" opacity="0.3" fill="none"/>
+      <!-- Base -->
+      <ellipse cx="200" cy="278" rx="50" ry="10" fill="#6B4F35" opacity="0.4"/>
+      <rect x="185" y="278" width="30" height="12" rx="4" fill="#6B4F35" opacity="0.5"/>
+      <!-- Shine -->
+      <ellipse cx="155" cy="112" rx="30" ry="8" fill="white" opacity="0.25" transform="rotate(-15 155 112)"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img">
+    <!-- Workshop SVG -->
+    <svg class="wood-pattern" viewBox="0 0 500 480" xmlns="http://www.w3.org/2000/svg">
+      <!-- Lathe silhouette -->
+      <rect x="0" y="0" width="500" height="480" fill="#6B4F35"/>
+      <!-- Wood grain lines -->
+      <path d="M0 80 Q250 60 500 90" stroke="#A0745A" stroke-width="1.5" opacity="0.3" fill="none"/>
+      <path d="M0 160 Q250 140 500 170" stroke="#A0745A" stroke-width="1" opacity="0.25" fill="none"/>
+      <path d="M0 240 Q250 220 500 250" stroke="#A0745A" stroke-width="1.5" opacity="0.2" fill="none"/>
+      <path d="M0 320 Q250 300 500 330" stroke="#A0745A" stroke-width="1" opacity="0.25" fill="none"/>
+      <path d="M0 400 Q250 380 500 410" stroke="#A0745A" stroke-width="1.5" opacity="0.2" fill="none"/>
+      <!-- Turning circle -->
+      <circle cx="250" cy="240" r="120" stroke="#C09A5B" stroke-width="1.5" opacity="0.4" fill="none"/>
+      <circle cx="250" cy="240" r="90" stroke="#C09A5B" stroke-width="1" opacity="0.3" fill="none"/>
+      <circle cx="250" cy="240" r="60" stroke="#C09A5B" stroke-width="1" opacity="0.25" fill="none"/>
+      <circle cx="250" cy="240" r="30" fill="#C09A5B" opacity="0.2"/>
+      <!-- Cross hairs -->
+      <line x1="250" y1="120" x2="250" y2="360" stroke="#C09A5B" stroke-width="1" opacity="0.3"/>
+      <line x1="130" y1="240" x2="370" y2="240" stroke="#C09A5B" stroke-width="1" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="about-text">
+    <p class="eyebrow">About Dan</p>
+    <h2>Every bowl tells a<br><em>story of the tree</em></h2>
+    <p>I'm Dan, a woodturner with a deep respect for the material I work with. Each piece starts with selecting the right blank — reading the grain, the figure, the character that's already there.</p>
+    <p>My bowls and vessels are made to live in your home, not behind glass. Turned on the lathe, hand-sanded through fine grits, and finished with food-safe oils, they're meant to be touched, filled, and used every day.</p>
+    <div class="signature">— Dan</div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="section-header">
+    <span class="eyebrow">The Collection</span>
+    <h2>Bowls & Vessels</h2>
+  </div>
+  <div class="grid">
+    <!-- Card 1 - large -->
+    <div class="card">
+      <div class="card-inner" style="background: linear-gradient(160deg, #C9A882, #8B5E3C);">
+        <svg class="card-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 70 Q30 170 100 185 Q170 170 180 70" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <ellipse cx="100" cy="70" rx="80" ry="20" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <ellipse cx="100" cy="183" rx="28" ry="7" fill="rgba(0,0,0,0.2)"/>
+        </svg>
+      </div>
+      <div class="card-label"><span>Signature</span><strong>Natural Edge Bowl</strong></div>
+    </div>
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-inner" style="background: linear-gradient(160deg, #B8956A, #6B4022);">
+        <svg class="card-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 80 Q55 150 100 160 Q145 150 150 80" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <ellipse cx="100" cy="80" rx="50" ry="14" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="card-label"><span>Salad & Serving</span><strong>Deep Serving Bowl</strong></div>
+    </div>
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-inner" style="background: linear-gradient(160deg, #A0745A, #4A2E1A);">
+        <svg class="card-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M80 40 Q75 180 100 200 Q125 180 120 40" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <ellipse cx="100" cy="40" rx="20" ry="8" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <ellipse cx="100" cy="198" rx="14" ry="5" fill="rgba(0,0,0,0.2)"/>
+        </svg>
+      </div>
+      <div class="card-label"><span>Decorative</span><strong>Turned Vessel</strong></div>
+    </div>
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-inner" style="background: linear-gradient(160deg, #D4B896, #7A5235);">
+        <svg class="card-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 90 Q35 155 100 165 Q165 155 170 90" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+          <ellipse cx="100" cy="90" rx="70" ry="18" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="card-label"><span>Everyday Use</span><strong>Wide Fruit Bowl</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-header">
+    <span class="eyebrow">How It's Made</span>
+    <h2>From log to heirloom</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">I</div>
+      <h3>Select the Wood</h3>
+      <p>Every piece starts with choosing a blank that has something to say — interesting grain, figure, or a story in its rings.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">II</div>
+      <h3>Turn on the Lathe</h3>
+      <p>The blank is mounted and shaped at speed. This is where the form emerges — walls thinned, curves refined, the profile set.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">III</div>
+      <h3>Hand Sand & Refine</h3>
+      <p>Sanded through progressive grits by hand, bringing out the wood's natural lustre and ensuring the surface is perfectly smooth.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">IV</div>
+      <h3>Oil & Finish</h3>
+      <p>Finished with food-safe oils that penetrate the grain, protecting the wood while letting its natural beauty speak for itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <p class="eyebrow">Get in Touch</p>
+    <h2>Commission a piece made just for you</h2>
+    <p>Looking for something specific — a certain wood species, size, or shape? I take a small number of commissions each season. Reach out and let's talk about what you have in mind.</p>
+    <div class="contact-details">
+      <div class="contact-item">
+        <div class="contact-icon">✉</div>
+        <span>dan@newspinwoodturning.com</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">☎</div>
+        <span>Available by appointment</span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="contact-form">
+      <input type="text" placeholder="Your name" />
+      <input type="email" placeholder="Email address" />
+      <textarea placeholder="Tell me what you're looking for…"></textarea>
+      <a href="#" class="btn" style="text-align:center;">Send Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">New Spin Woodturning</span>
+  <span>© 2026 Dan. Handcrafted with care.</span>
+</footer>
+
+</body>
+</html>
