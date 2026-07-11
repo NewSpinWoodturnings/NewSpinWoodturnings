@@ -538,12 +538,12 @@
     </div>
   </div>
   <div>
-    <div class="contact-form">
-      <input type="text" placeholder="Your name" />
-      <input type="email" placeholder="Email address" />
-      <textarea placeholder="Tell me what you're looking for…"></textarea>
-      <a href="#" class="btn" style="text-align:center;">Send Message</a>
-    </div>
+   <form class="contact-form" action="mailto:dan@newspinwoodturnings.com" method="post" enctype="text/plain">
+<input type="text" name="name" placeholder="Your name" required />
+<input type="email" name="email" placeholder="Email address" required />
+<textarea name="message" placeholder="Tell me what you're looking for…" required></textarea>
+<button type="submit" class="btn" style="text-align:center; cursor:pointer; border:none;">Send Message</button>
+</form>
   </div>
 </section>
 
